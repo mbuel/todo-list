@@ -6,24 +6,30 @@ body>div.todo {
   transform-origin: left bottom;
   -ms-transform: skew(1.8deg,2deg); /* IE 9 */
   transform: skew(1.8deg,2deg); /* Standard syntax */
-  left: 270px;
+  left: 245px;
   top: 110px;
 }
 
-h5>input {
+.completed {
+  text-decoration: line-through;
+}
+.check {
   position: relative;
-  width: 80%;
-  left: 17px;
-  top: -10px;
+  right: -25px;
+  top: 7px;
+ transform:scale(2.2, 2.2);
+}
+input {
+  /* position: relative; */
+  width: 95% !important;
+  /* left: 17px; */
+  /* top: -10px; */
 }
 
 #todo-list {
     margin-top: 10px;
-  }
-  
-  #todo-input {
-    margin-bottom: 5px;
-  }
+}
+
   
   /* This will fade in the new added tasks using the animation property */
   .todo {

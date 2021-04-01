@@ -1,105 +1,76 @@
 var url = 'https://altcademy-to-do-list-api.herokuapp.com/tasks';
-var query = '?';
-var apiKey = 'api_key=13'
+// var query = '?';
+var apiKey = '?api_key=13'
+
+xhr('GET', url + apiKey, createList);
+
+// TODO: change to jQUERY call for document ready
+
+//TODO: bonus better define MVC functions on appropriate fornm
+
 document.addEventListener('DOMContentLoaded', function() {
 
 
     // Retrieve list
-    var todoList = xhr('GET', url + query + apiKey, createList);
+    // var todoList = 
 
     // Returns the first element with the 'todo-input' id
     document.getElementById('todo-input');
 
-    var todoList = document.getElementById('todo-list');
-    var todoInput = document.getElementById('todo-input');
-    var addButton = document.getElementById('add-button');
-    var todoCount = 0;
+    $('#todo-list').on('click', 'div.col-1>input', function(event) {
+      // event.preventDefault();
+      console.log(event);
+      var id = event.currentTarget.parentNode.parentNode.id.split('-')[1];
+      var completed = event.currentTarget.checked;
+      console.log(completed);
+      console.log(id);
+      $(`#input-${id}`).toggleClass('completed');
+      if (completed) {
+        httpRequest.open('PUT', `${url}/${id}/mark_complete/${apiKey}`);
+      }
+      httpRequest.send();
+      // updateTodo(id, completed);
+      // $(`#update-${id}`).show(500);
+    });
 
-    // addTodo function will dynamically add a div element
-    // containing the description to the todo-list div.
+    $('#todo-list').on('click', 'div.col-9>input', function(event) {
+      event.preventDefault();
+      console.log(event);
+      var id = event.currentTarget.parentNode.parentNode.id.split('-')[1];
+      console.log(id);
+      $(`#update-${id}`).show(500);
+    });
 
-    var addTodo = function() {
-        // Create a div element and assign it to todoCol variable.
-        var todoCol = document.createElement('div');
-        // Give it a class of col-xs-12 and todo.
-        todoCol.setAttribute('class', 'col-xs-12 todo');
-      
-        // Create another div element and assign it to todoRow variable.
-        var todoRow = document.createElement('div');
-        // Give it a class of row.
-        todoRow.setAttribute('class', 'row');
-      
-        // Create a button element and assign it to removeButton variable.
-        var removeButton = document.createElement('button');
-      
-        // Set class attribute of removeButton as btn, btn-danger and remove-button.
-        removeButton.setAttribute('class','btn btn-danger remove-button');
-      
-        // Add the string "REMOVE" into the innerHTML of removeButton.
-        removeButton.innerHTML = "REMOVE";
-      
-        // Define the event listener for click so that this todoCol element
-        // will be removed when the user clicks removeButton
-        removeButton.onclick = function() {
-          // We use 'this' to point to the remove button element.
-      
-          // this.parentNode.parentNode will assign todoCol to variable child
-          var child = this.parentNode.parentNode;
-      
-          // We use the removeChild method to delete child from the todo-list
-          todoList.removeChild(child);
-          
-          //  remove 1 from todoCount
-          todoCount++;
-        };
-      
-        // Create an h5 element and assign it to the h5 variable.
-        var h5 = document.createElement('h5');
-      
-        // Sets the class attribute of h5 to take up 8 columns.
-        h5.setAttribute('class', 'col-xs-8');
-      
-        // Assign the value of todoInput, which is the text the user typed
-        // into the input element, to the innerHTML property of h5.
-        h5.innerHTML = todoInput.value;
-      
-        // Add h5 as the last child element to the todoRow element.
-        todoRow.appendChild(h5);
-      
-        // Add removeButton as the last child element to todoRow.
-        todoRow.appendChild(removeButton);
-      
-        // Add todoRow as the last child element to the todoCol element.
-        todoCol.appendChild(todoRow);
-      
-        // Append todoCol as the last child element to the todoList div.
-        todoList.appendChild(todoCol);
-    };
-
-    function checkThenAddTodo() {
-        // First we make sure that there is less than 10 to-dos,
-        // and some value exists in the input element.
-
-        if (todoCount < 10 && todoInput.value !== '') {
-
-            // Executes the addTodo function we defined earlier.
-            addTodo();
-        
-            // Add 1 to todoCount.
-            todoCount++;
-        
-            // Clear the input element by setting it to empty string.
-            todoInput.value = '';
-        }
-    }
+    // deal with button click per row
+    $('#todo-list').on('click', 'button', function(event) {
+      event.preventDefault();
+      var type = event.currentTarget.classList[event.currentTarget.classList.length - 1].split('-')[0];
+      var id = event.currentTarget.parentNode.parentNode.id.split('-')[1];
+      switch(type) {
+        case 'update':
+          console.log('update');
+          console.log(id);
+          // send update to server
+          updateTodo(id);
+          break;
+        case 'remove':
+          console.log('remove');
+          // send removal to server, and remove from front-end
+          httpRequest.open('DELETE', `${url}/${id}${apiKey}`);
+          httpRequest.send();
+          $(`#message-${id}`).toggle(500)
+          setTimeout(function() {
+            $(`#message-${id}`).remove();
+          }, 500)
+          break;
+      }
+    })
 
     // This handler will execute when the addButton is clicked.
-
-    addButton.addEventListener('click', checkThenAddTodo);
-      
-    todoInput.addEventListener('keyup', function (event) {
+    $('div#input-form > div.row > div').on('click', '.btn', checkThenAddTodo);
+    $('document').on('keyup', function (event) {
         if (event.key === "Enter") {
           checkThenAddTodo();
         }
-      });
-  });
+    });
+});
