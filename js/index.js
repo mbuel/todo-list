@@ -1,5 +1,11 @@
+var url = 'https://altcademy-to-do-list-api.herokuapp.com/tasks';
+var query = '?';
+var apiKey = 'api_key=13'
 document.addEventListener('DOMContentLoaded', function() {
-    // Code placed here will run when the DOM content has loaded.
+
+
+    // Retrieve list
+    var todoList = xhr('GET', url + query + apiKey, createList);
 
     // Returns the first element with the 'todo-input' id
     document.getElementById('todo-input');

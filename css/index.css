@@ -1,3 +1,22 @@
+body {
+  background-image: url(../res/fridge.jpg);
+}
+body>div.todo {
+  position: fixed;
+  transform-origin: left bottom;
+  -ms-transform: skew(1.8deg,2deg); /* IE 9 */
+  transform: skew(1.8deg,2deg); /* Standard syntax */
+  left: 270px;
+  top: 110px;
+}
+
+h5>input {
+  position: relative;
+  width: 80%;
+  left: 17px;
+  top: -10px;
+}
+
 #todo-list {
     margin-top: 10px;
   }
