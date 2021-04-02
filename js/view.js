@@ -23,15 +23,29 @@ var createList = function(data) {
 
 var addTodo = function(todo) {
     todo = todo.content != undefined ? todo : todo.task;
-    console.log(todo);
     var html = templateString.replace(/\$ID/g, todo.id).replace(/\$TODO/, todo.content);
 
     $('#todo-list').append(html);
     $('#todo-input').val('');
     $(`#update-${todo.id}`).hide();
 
-    // Todo set state of completed
-    
+    setCompletedCheckBox(todo);
 
 }
 
+var setCompletedCheckBox = function(todo) {
+    
+    todo = todo.content != undefined ? todo : todo.task;
+    
+    if (todo.completed) {
+        $(`#input-${todo.id}`).addClass('completed');
+    } else {
+        $(`#input-${todo.id}`).removeClass('completed');
+    }
+    
+    $(`#complete-${todo.id}`).prop('checked', todo.completed);
+}
+
+var displayElement = function(dom, delay = 500) {
+    $(dom).show(delay);
+}

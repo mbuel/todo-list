@@ -15,7 +15,9 @@ httpRequest.onerror = function() {
   console.log(httpRequest.statusText);
 }
 
+// TODO: Change to an AJAX request to demonstrate knowledge
 var xhr = function(mode, uri, cb, data) {
+  console.log(cb);
   httpRequest.open(mode, uri);
 
   var data = data ? JSON.stringify(data) : null;
@@ -29,23 +31,23 @@ var xhr = function(mode, uri, cb, data) {
 
 
 
-var constructTodoData = function(id, content, done = false) {
+var constructTodoData = function(content, id) {
   return data =  {
     task: {
-      "id": id,
-      "content": content,
-      "completed": done,
-      "due":null
+      "id": id? id : undefined,
+      "content": content
     }
   };
 }
 
-var updateTodo = function(id, completed = false) {
+var updateTodo = function(id, cb) {
   var query = `/${id}`;
-  console.log(id, completed);
-  var data = constructTodoData(id, $(`#input-${id}`).val(), completed);
-  console.log(data);
-  xhr('PUT', url + query + apiKey, undefined, data);
+  var data = constructTodoData($(`#input-${id}`).val(), id);
+  
+  setCompleted(id, undefined, false);
+  setTimeout(function() {
+    xhr('PUT', url + query + apiKey, cb, data);
+  }, 250);
   
 }
 
@@ -53,5 +55,13 @@ function checkThenAddTodo() {
   var data =  constructTodoData($('#todo-input').val());
 
   xhr('POST', url + apiKey, addTodo, data);
+
+}
+
+function setCompleted(id, cb, completed=false) {
+  var query = `/${id}`;
+
+  callback = cb;
+  xhr('PUT', `${url}${query}${(completed ? '/mark_complete/' : '/mark_active/')}${apiKey}`, cb)
 
 }

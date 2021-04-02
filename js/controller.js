@@ -6,39 +6,25 @@ xhr('GET', url + apiKey, createList);
 
 // TODO: change to jQUERY call for document ready
 
-//TODO: bonus better define MVC functions on appropriate fornm
+// TODO: bonus better define MVC functions on appropriate fornm
 
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function () {
 
-
-    // Retrieve list
-    // var todoList = 
-
-    // Returns the first element with the 'todo-input' id
-    document.getElementById('todo-input');
 
     $('#todo-list').on('click', 'div.col-1>input', function(event) {
-      // event.preventDefault();
-      console.log(event);
       var id = event.currentTarget.parentNode.parentNode.id.split('-')[1];
       var completed = event.currentTarget.checked;
-      console.log(completed);
-      console.log(id);
-      $(`#input-${id}`).toggleClass('completed');
-      if (completed) {
-        httpRequest.open('PUT', `${url}/${id}/mark_complete/${apiKey}`);
-      }
-      httpRequest.send();
-      // updateTodo(id, completed);
-      // $(`#update-${id}`).show(500);
+
+      setCompleted(id, setCompletedCheckBox, completed);
+
     });
 
     $('#todo-list').on('click', 'div.col-9>input', function(event) {
       event.preventDefault();
-      console.log(event);
+
       var id = event.currentTarget.parentNode.parentNode.id.split('-')[1];
-      console.log(id);
-      $(`#update-${id}`).show(500);
+
+      displayElement(`#update-${id}`);
     });
 
     // deal with button click per row
@@ -51,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log('update');
           console.log(id);
           // send update to server
-          updateTodo(id);
+          updateTodo(id, setCompletedCheckBox);
           break;
         case 'remove':
           console.log('remove');
