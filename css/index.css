@@ -1,0 +1,49 @@
+body {
+  background-image: url(../res/fridge.jpg);
+}
+body>div.todo {
+  position: fixed;
+  transform-origin: left bottom;
+  -ms-transform: skew(1.8deg,2deg); /* IE 9 */
+  transform: skew(1.8deg,2deg); /* Standard syntax */
+  left: 245px;
+  top: 110px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+.check {
+  position: relative;
+  right: -25px;
+  top: 7px;
+ transform:scale(2.2, 2.2);
+}
+input {
+  /* position: relative; */
+  width: 95% !important;
+  /* left: 17px; */
+  /* top: -10px; */
+}
+
+#todo-list {
+    margin-top: 10px;
+}
+
+  
+  /* This will fade in the new added tasks using the animation property */
+  .todo {
+    margin-bottom: 10px;
+    opacity: 0;
+    -webkit-animation: fadeIn .5s linear forwards;
+    -moz-animation: fadeIn .5s linear forwards;
+    animation: fadeIn .5s linear forwards;
+  }
+  
+  /* you need to define the fadeIn keyframe property for it to work */
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  

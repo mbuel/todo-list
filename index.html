@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <title>To-do List</title>
+
+    <!-- Latest compiled and minified CSS Bootstrap 3 -->
+
+    
+    
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    
+    <script src="./js/model.js"></script>
+    <script src="./js/view.js"></script>
+    <script src="./js/controller.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/fontawesome.min.js"></script>
+    
+    <link href="./css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <div class='todo container'>
+      <div class="row">
+        <div class="col-12">
+          <!-- Title -->
+          <div class="title">
+            <div class="row">
+              <div class="col-8">
+                <h2>To-do list</h2>
+
+              </div>
+              <div class="col-4">
+                <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="all" autocomplete="off" checked> All
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="active" autocomplete="off"> ToDo
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="completed" autocomplete="off"> Completed
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="input-form">
+            <div class="row">
+                <!-- The input element for users to add To Do -->
+                <div class="col-1">
+                  &nbsp;
+                </div>
+                <div class="col-9">
+                  <input id="todo-input" class="form-control" placeholder="New To-Do">
+                </div>
+                <div class="col-1">
+                  &nbsp;
+                </div>
+                <!-- A button for adding ToDos -->
+                <div class="col-1">
+                  <button id="add-button" type="button" class="btn btn-primary"><i class="fa fa-plus " ></i></button>
+                </div>
+            </div>
+          </div>
+          <hr>
+          <div id="todo-list">
+ 
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+
+</html>
