@@ -4,6 +4,7 @@ var xhr = function(mode, uri, cb, data) {
   $.ajax({
     type: mode,
     url: uri,
+    contentType: 'application/json',
     dataType: 'json',
     data: JSON.stringify(data),
     success: function (response, textStatus) {
@@ -12,6 +13,8 @@ var xhr = function(mode, uri, cb, data) {
     error: function (request, textStatus, errorMessage) {
   
       console.log(errorMessage);
+      console.error(textStatus);
+      console.error(request);
   
     }
   
@@ -57,7 +60,7 @@ function setCompleted(id, cb, completed=false) {
 
 var deleteTodo = function(id, cb) {
 
-  xhr('DELETE', `${url}${id}${apiKey}`, cb);
+  xhr('DELETE', `${url}/${id}${apiKey}`, cb);
 
   removeListItem(id);
 }
