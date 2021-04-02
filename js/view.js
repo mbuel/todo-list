@@ -1,4 +1,4 @@
-var templateString = `<div id="message-$ID" class="row pb-3">
+var templateString = `<div id="message-$ID" class="task row pb-3">
     <div class="col-1">
         <input class="check" type="checkbox" id="complete-$ID" name="completed" value="">
     </div>
@@ -27,7 +27,8 @@ var addTodo = function(todo) {
 
     $('#todo-list').append(html);
     $('#todo-input').val('');
-    $(`#update-${todo.id}`).hide();
+    // $(`#update-${todo.id}`).hide();
+    hideElement(`#update-${todo.id}`, 0);
 
     setCompletedCheckBox(todo);
 
@@ -48,4 +49,52 @@ var setCompletedCheckBox = function(todo) {
 
 var displayElement = function(dom, delay = 500) {
     $(dom).show(delay);
+}
+var hideElement = function(dom, delay = 500) {
+    $(dom).hide(delay);
+}
+
+var removeListItem = function(id) {
+    $(`#message-${id}`).toggle(500)
+    setTimeout(function() {
+      $(`#message-${id}`).remove();
+    }, 500)
+}
+
+var filterList = function(filter) {
+    console.log(filter);
+    switch (filter) {
+        case 'all':
+          // change filter to all
+          $('.task').map(function(i, el) {
+            console.log($(this).find('div.col-9>input')[0].classList.contains('completed'));
+            displayElement(el);
+            });
+          break;
+        case 'active':
+          // change filter to active
+          $('.task').map(function(i, el) {
+            console.log($(this).find('div.col-9>input')[0].classList.contains('completed'));
+            if (!$(this).find('div.col-9>input')[0].classList.contains('completed')) {
+                displayElement(el);
+
+            } else {
+                hideElement(el);
+            }
+            });
+          break;
+        case 'completed':
+          // change filter to show completed
+            $('.task').map(function(i, el) {
+                console.log($(this).find('div.col-9>input')[0].classList.contains('completed'));
+                // displayElement(el);
+
+                if ($(this).find('div.col-9>input')[0].classList.contains('completed')) {
+                    displayElement(el);
+                } else {
+                    hideElement(el);
+                }
+            });
+            break;
+    }
 }

@@ -34,23 +34,24 @@ $(document).ready(function () {
       var id = event.currentTarget.parentNode.parentNode.id.split('-')[1];
       switch(type) {
         case 'update':
-          console.log('update');
-          console.log(id);
           // send update to server
           updateTodo(id, setCompletedCheckBox);
           break;
         case 'remove':
-          console.log('remove');
-          // send removal to server, and remove from front-end
-          httpRequest.open('DELETE', `${url}/${id}${apiKey}`);
-          httpRequest.send();
-          $(`#message-${id}`).toggle(500)
-          setTimeout(function() {
-            $(`#message-${id}`).remove();
-          }, 500)
+          deleteTodo(id);
+
           break;
       }
     })
+    
+    $('.btn-group').on('click', function() {
+      setTimeout(function() {
+        var filter = $('.btn-group').find('.active')[0].children[0].id;
+        console.log(filter);
+        filterList(filter);
+
+      },50);
+    });
 
     // This handler will execute when the addButton is clicked.
     $('div#input-form > div.row > div').on('click', '.btn', checkThenAddTodo);
