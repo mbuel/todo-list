@@ -15,6 +15,7 @@ body {
   background-image: url(../res/fridge.jpg);
 }
 body>div.todo {
+  padding-bottom: 3px;
   position: fixed;
   transform-origin: left bottom;
   -ms-transform: skew(1.8deg,2deg); /* IE 9 */
@@ -34,10 +35,7 @@ body>div.todo {
 }
 
 input {
-  /* position: relative; */
   width: 95% !important;
-  /* left: 17px; */
-  /* top: -10px; */
 }
 
 #todo-list {
@@ -53,6 +51,70 @@ input {
     -moz-animation: fadeIn .5s linear forwards;
     animation: fadeIn .5s linear forwards;
   }
+
+/* media queries */
+
+@media only screen and (max-width: 1368px) {
+  body {
+    /* background-image: url(../res/sticky-note-cropped.jpg); */
+    background-repeat: no-repeat;
+  }
+  input {
+    transform:scale(0.9, 0.9);
+    width: 80%;
+  }
+ 
+  body>div.todo {
+    padding-bottom: 1px;
+    left: 180px;
+    /* top: 62px; */
+  }
+  h2 {
+    transform:scale(0.8, 0.8);
+  }
+  .btn {
+    transform:scale(0.8, 0.8);
+  }
+  .check {
+    position: relative;
+    right: -5px;
+    top: 7px;
+   transform:scale(1.2, 1.2);
+  }
+}
+
+@media only screen and (max-width: 632px) {
+  body {
+    background-image: url(../res/sticky-note-cropped.jpg);
+    background-repeat: no-repeat;
+  }
+  input {
+    transform:scale(0.9, 0.9);
+  }
+ 
+  body>div.todo {
+    padding-bottom: 1px;
+    position: fixed;
+    transform-origin: left bottom;
+    -ms-transform: skew(-1.4deg,-1.9deg); /* IE 9 */
+    transform: skew(-1.4deg,-1.9deg); /* Standard syntax */
+    transform:rotate(-1.4deg);
+    left: -18px;
+    top: 62px;
+  }
+  h2 {
+    transform:scale(0.8, 0.8);
+  }
+  .btn {
+    transform:scale(0.8, 0.8);
+  }
+  .check {
+    position: relative;
+    right: -5px;
+    top: 7px;
+   transform:scale(0.8, 0.8);
+  }
+}
   
   /* you need to define the fadeIn keyframe property for it to work */
   @keyframes fadeIn {
